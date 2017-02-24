@@ -39,10 +39,6 @@ MEMORY {
     RAM (rwx): ORIGIN = BL31_BASE, LENGTH = BL31_LIMIT - BL31_BASE
 }
 
-#ifdef PLAT_EXTRA_LD_SCRIPT
-#include <plat.ld.S>
-#endif
-
 SECTIONS
 {
     . = BL31_BASE;
@@ -256,4 +252,13 @@ SECTIONS
 #endif
 
     ASSERT(. <= BL31_LIMIT, "BL31 image has exceeded its limit.")
+
+#ifdef PLAT_EXTRA_LD_SCRIPT
+    . = ALIGN(4096);
+    __bl31_extra_ld_base = .;
+#endif
 }
+
+#ifdef PLAT_EXTRA_LD_SCRIPT
+#include <plat.ld.S>
+#endif

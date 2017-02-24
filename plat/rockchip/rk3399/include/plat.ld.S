@@ -38,7 +38,7 @@ SECTIONS
 {
 	. = SRAM_BASE;
 	ASSERT(. == ALIGN(4096),
-		"SRAM_BASE address is not aligned on a page boundary.")
+	       "SRAM_BASE address is not aligned on a page boundary.")
 
 	/*
 	 * The SRAM space allocation for RK3399
@@ -50,7 +50,7 @@ SECTIONS
 	 * | sram data
 	 * ----------------
 	 */
-	.incbin_sram : ALIGN(4096) {
+	.incbin_sram : AT(__bl31_extra_ld_base){
 		__sram_incbin_start = .;
 		*(.sram.incbin)
 		. = ALIGN(4096);
